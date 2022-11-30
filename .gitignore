@@ -1,0 +1,7 @@
+/manage.py
+/main_app/migrations/
+/passtake/__init__.py
+/passtake/passwords/
+/__init__.py
+/main_app/__init__.py
+passtake/__pycache__/
