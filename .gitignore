@@ -1,7 +1,11 @@
 /manage.py
 /main_app/migrations/
 /passtake/__init__.py
-/passtake/passwords/
 /__init__.py
 /main_app/__init__.py
-passtake/__pycache__/
+/passtake/__pycache__/
+/db.sqlite3
+/passtake/.env
+/auth_back/__init__.py
+/auth_back/migrations/
+/auth_back/__pycache__/

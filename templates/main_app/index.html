@@ -5,6 +5,7 @@
     <title>Main page</title>
 </head>
 <body>
-
+    <h1>Welcome, {{ user.username }} </h1>
+    <h2><a href="{% url 'auth_back:logout' %}">Log out</a></h2>
 </body>
 </html>

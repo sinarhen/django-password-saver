@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Log in
+        </button>
+        Not registered? <a href="{% url 'auth_back:register' %}">register</a>
+        {{ user.is_authenticated }}
+    </form>
+</body>
+</html>
