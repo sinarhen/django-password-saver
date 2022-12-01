@@ -26,6 +26,7 @@ def logout_view(request):
     logout(request)
     return redirect(conf.settings.LOGIN_REDIRECT_URL)
 
+
 def register_view(request):
     form = RegisterForm()
     if request.method == 'POST':

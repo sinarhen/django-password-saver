@@ -7,5 +7,11 @@
 <body>
     <h1>Welcome, {{ user.username }} </h1>
     <h2><a href="{% url 'auth_back:logout' %}">Log out</a></h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" formmethod="post">Generate</button>
+        <h2>{{ password }}</h2>
+    </form>
 </body>
 </html>
