@@ -5,13 +5,24 @@
     <title>Main page</title>
 </head>
 <body>
-    <h1>Welcome, {{ user.username }} </h1>
-    <h2><a href="{% url 'auth_back:logout' %}">Log out</a></h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" formmethod="post">Generate</button>
-        <h2>{{ password }}</h2>
-    </form>
+<h1>Welcome, {{ user.username }} </h1>
+<h2><a href="{% url 'auth_back:logout' %}">Log out</a></h2>
+<form method="post" id="passform">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" formmethod="post">Generate</button>
+
+    <label>{{ password }}</label>
+    {% if password != 'YOUR PASSWORD'%}
+    {% endif %}
+    <button type="submit" name="save" value="true">save</button>
+</form>
+     <ul>
+        {% for i in saved %}
+
+            <li>{{ i.password }}</li>
+
+        {% endfor %}
+    </ul>
 </body>
 </html>
