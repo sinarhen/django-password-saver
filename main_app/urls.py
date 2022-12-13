@@ -4,6 +4,7 @@ from .views import *
 app_name = 'main'
 urlpatterns = [
     path('', index, name='index'),
-    path('save', save, name='save'),
-    path('delete', delete, name='delete')
+    path('save/<path:password>', save, name='save'),
+    path('delete/<int:pk>', delete, name='delete'),
+
 ]

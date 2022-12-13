@@ -10,34 +10,36 @@ from .models import Password
 
 @login_required
 def index(request):
-    password = 'YOUR PASSWORD'
+    default_password = 'YOUR_PASSWORD'
     form = PasswordSettingForm()
     if request.method == 'POST':
-        form = PasswordSettingForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            digits = cd['digits']
-            spec_symbols = cd['special_symbols']
-            letters = cd['letters']
-            length = cd['length']
-            password = generate(digits, spec_symbols, letters, length)
-            if request.POST.get('save') == 'true':
-                Password.objects.create(password=password, owner=request.user)
+        password_post_get = request.POST.get("password")
+        if request.POST.get('save') == 'true' and password_post_get != 'YOUR_PASSWORD':
+            default_password = password_post_get
+            return redirect('main:save', password_post_get)
+        else:
+            form = PasswordSettingForm(request.POST)
+            if form.is_valid():
+                cd = form.cleaned_data
+                digits = cd['digits']
+                spec_symbols = cd['special_symbols']
+                letters = cd['letters']
+                length = cd['length']
+                default_password = generate(digits, spec_symbols, letters, length)
 
     return render(request, template_name='main_app/index.html',
-                  context={'form': form, 'password': password, 'saved': Password.objects.filter(owner=request.user)})
+                  context={'form': form,
+                           'password': default_password,
+                           'saved': Password.objects.filter(owner=request.user)})
 
 
 @login_required
-@require_POST
-def save(request):
-    print(request.POST)
-    Password.objects.create(password=request.POST.get('result'), owner=request.user)
+def save(request, password):
+    Password.objects.create(password=password, owner=request.user)
     return redirect('main:index')
 
 
 @login_required
-@require_POST
-def delete(request):
-    Password.objects.delete(password=request.POST.get('delete_password'), owner=request.user)
+def delete(request, pk):
+    Password.objects.get(pk=pk).delete()
     return redirect('main:index')

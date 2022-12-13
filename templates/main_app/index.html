@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,17 +11,19 @@
 <form method="post" id="passform">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" formmethod="post">Generate</button>
+    <button type="submit" name="generate" value="true" formmethod="post">Generate</button>
 
-    <label>{{ password }}</label>
+    <input name="password" value="{{ password }}" type="hidden">
+    <h2>{{password}}</h2>
     {% if password != 'YOUR PASSWORD'%}
     {% endif %}
     <button type="submit" name="save" value="true">save</button>
+    <script src="{% static 'assets/js/index.js' %}"></script>
 </form>
      <ul>
         {% for i in saved %}
 
-            <li>{{ i.password }}</li>
+            <li><a href="{% url 'main:delete' pk=i.id %}">{{ i.password }}</a></li>
 
         {% endfor %}
     </ul>
